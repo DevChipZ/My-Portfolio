@@ -82,13 +82,12 @@
     border-bottom: 1px solid var(--line);
   }
   
- .hero-banner {
+  .hero-banner {
     position: absolute;
     top: 0; right: 0; bottom: 0; 
     width: 45%; 
     background-image: url('assets/photo.jpg');
     background-size: cover; 
-    /* This is the fix! Anchors the image to the top of your head */
     background-position: center top; 
     z-index: -2;
     opacity: 0.95; 
@@ -100,15 +99,7 @@
   .hero-fade {
     position: absolute;
     top: 0; right: 0; bottom: 0; left: 0;
-    /* This gradient makes sure the text area stays solid black, then fades out */
     background: linear-gradient(to right, var(--ink) 55%, transparent 90%);
-    z-index: -1;
-  }
-
-  .hero-fade {
-    position: absolute;
-    top: 0; right: 0; bottom: 0; left: 0;
-    background: linear-gradient(to right, var(--ink) 40%, transparent 100%);
     z-index: -1;
   }
 
@@ -257,7 +248,7 @@
     <div class="brand"><span class="status-dot"></span> <b>irshad.dev</b> / profile.api</div>
     <div class="console-links">
       <a href="https://github.com/DevChipZ?tab=repositories" target="_blank" rel="noopener">github</a>
-      <a href="Irshad_Ahmed_DataScientist_Resume.pdf" target="_blank" rel="noopener">résumé</a>
+      <a href="Irshad_Ahmed_Resume.pdf" target="_blank" rel="noopener">résumé</a>
     </div>
   </div>
 </div>
@@ -283,7 +274,7 @@
 
         <div class="cta-row">
           <a class="btn btn-primary" href="mailto:irshad060404@gmail.com">Contact Me</a>
-          <a class="btn btn-ghost" href="Irshad_Ahmed_DataScientist_Resume.pdf" target="_blank" rel="noopener">View Resume</a>
+          <a class="btn btn-ghost" href="Irshad_Ahmed_Resume.pdf" target="_blank" rel="noopener">View Resume</a>
           <a class="btn btn-ghost" href="https://github.com/DevChipZ?tab=repositories" target="_blank" rel="noopener">GitHub</a>
           <button class="btn btn-ghost" id="infoBtn">Information</button>
         </div>
