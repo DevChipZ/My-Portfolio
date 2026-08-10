@@ -85,14 +85,14 @@
  .hero-banner {
     position: absolute;
     top: 0; right: 0; bottom: 0; 
-    width: 45%; /* This is the secret! Locks the image to the right side */
+    width: 45%; 
     background-image: url('assets/photo.jpg');
     background-size: cover; 
-    background-position: center;
+    /* This is the fix! Anchors the image to the top of your head */
+    background-position: center top; 
     z-index: -2;
     opacity: 0.95; 
     
-    /* Optional: Adds a super smooth fade to the left edge of your image */
     -webkit-mask-image: linear-gradient(to right, transparent 0%, black 25%);
     mask-image: linear-gradient(to right, transparent 0%, black 25%);
   }
