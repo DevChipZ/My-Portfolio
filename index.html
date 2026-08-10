@@ -83,16 +83,27 @@
   }
   
  .hero-banner {
-  position: absolute;
-  top: 0; right: 0; bottom: 0; left: 20%;
-  background-image: url('assets/photo.jpg');
-  /* The magic zoom-out lines: */
-  background-size: contain; 
-  background-position: right center;
-  background-repeat: no-repeat;
-  z-index: -2;
-  opacity: 0.6; 
-}
+    position: absolute;
+    top: 0; right: 0; bottom: 0; 
+    width: 45%; /* This is the secret! Locks the image to the right side */
+    background-image: url('assets/photo.jpg');
+    background-size: cover; 
+    background-position: center;
+    z-index: -2;
+    opacity: 0.95; 
+    
+    /* Optional: Adds a super smooth fade to the left edge of your image */
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 25%);
+    mask-image: linear-gradient(to right, transparent 0%, black 25%);
+  }
+
+  .hero-fade {
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    /* This gradient makes sure the text area stays solid black, then fades out */
+    background: linear-gradient(to right, var(--ink) 55%, transparent 90%);
+    z-index: -1;
+  }
 
   .hero-fade {
     position: absolute;
