@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Irshad Ahmed — profile.api</title>
+<meta name="description" content="Irshad Ahmed — Full-stack developer, data scientist, GenAI engineer and interaction designer. Pick a profile to load." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0B0D12;
+    --panel:#12151C;
+    --panel-2:#171B24;
+    --line:#242939;
+    --text:#ECEFF4;
+    --muted:#8A90A0;
+    --amber:#FFB454;
+    --amber-dim:#7A5A2A;
+    --violet:#8B93FF;
+    --green:#6EE7B7;
+    --radius:14px;
+    --mono:'JetBrains Mono', ui-monospace, monospace;
+    --display:'Space Grotesk', sans-serif;
+    --body:'Inter', sans-serif;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(1100px 500px at 85% -10%, rgba(139,147,255,0.10), transparent 60%),
+      radial-gradient(900px 500px at 5% 0%, rgba(255,180,84,0.08), transparent 55%),
+      var(--ink);
+    color:var(--text);
+    font-family:var(--body);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+  ::selection{background:var(--amber);color:#1a1305;}
+
+  :focus-visible{
+    outline:2px solid var(--amber);
+    outline-offset:3px;
+    border-radius:6px;
+  }
+
+  .wrap{max-width:920px;margin:0 auto;padding:0 24px;}
+
+  /* ---------- top console bar ---------- */
+  .console-bar{
+    border-bottom:1px solid var(--line);
+    background:rgba(18,21,28,0.7);
+    backdrop-filter:blur(10px);
+    position:sticky;top:0;z-index:40;
+  }
+  .console-bar .wrap{
+    display:flex;align-items:center;justify-content:space-between;
+    padding-top:14px;padding-bottom:14px;
+  }
+  .brand{
+    font-family:var(--mono);font-size:13px;color:var(--muted);
+    display:flex;align-items:center;gap:8px;
+  }
+  .brand b{color:var(--text);font-weight:600;}
+  .status-dot{
+    width:7px;height:7px;border-radius:50%;background:var(--green);
+    box-shadow:0 0 0 3px rgba(110,231,183,0.15);
+    flex-shrink:0;
+  }
+  .console-links{display:flex;gap:18px;font-family:var(--mono);font-size:13px;}
+  .console-links a{text-decoration:none;color:var(--muted);transition:color .15s;}
+  .console-links a:hover{color:var(--amber);}
+
+  /* ---------- hero ---------- */
+  .hero{padding:56px 0 28px;}
+  .hero-top{display:flex;gap:26px;align-items:flex-start;flex-wrap:wrap;}
+  .avatar{
+    width:84px;height:84px;border-radius:16px;object-fit:cover;
+    border:1px solid var(--line);
+    box-shadow:0 0 0 4px rgba(255,180,84,0.06);
+    flex-shrink:0;
+  }
+  .hero-id{flex:1;min-width:220px;}
+  .eyebrow{
+    font-family:var(--mono);font-size:12.5px;color:var(--amber);
+    letter-spacing:.02em;margin:0 0 8px;
+  }
+  h1{
+    font-family:var(--display);font-weight:700;
+    font-size:clamp(32px,5vw,46px);
+    margin:0 0 6px;letter-spacing:-0.01em;line-height:1.05;
+  }
+  .role-line{
+    font-family:var(--mono);font-size:15px;color:var(--muted);
+    margin:0 0 14px;
+  }
+  .role-line #roleValue{color:var(--violet);}
+  .location-line{
+    font-size:14px;color:var(--muted);margin:0;
+  }
+
+  .meta-row{
+    display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;
+  }
+  .meta-pill{
+    font-family:var(--mono);font-size:12px;color:var(--muted);
+    border:1px solid var(--line);border-radius:999px;
+    padding:6px 12px;background:var(--panel);
+  }
+  .meta-pill strong{color:var(--text);font-weight:600;}
+
+  .cta-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px;}
+  .btn{
+    font-family:var(--body);font-weight:600;font-size:14px;
+    padding:11px 18px;border-radius:10px;text-decoration:none;
+    display:inline-flex;align-items:center;gap:8px;
+    border:1px solid transparent;transition:transform .12s, background .15s, border-color .15s;
+  }
+  .btn:hover{transform:translateY(-1px);}
+  .btn-primary{background:var(--amber);color:#1a1305;}
+  .btn-primary:hover{background:#ffc476;}
+  .btn-ghost{background:transparent;border-color:var(--line);color:var(--text);}
+  .btn-ghost:hover{border-color:var(--violet);color:var(--violet);}
+
+  /* ---------- persona picker (signature element) ---------- */
+  .picker-section{padding:30px 0 8px;}
+  .picker-label{
+    font-family:var(--mono);font-size:12.5px;color:var(--muted);
+    margin:0 0 12px;
+  }
+  .picker-label .prompt{color:var(--green);}
+  .picker-label .path{color:var(--text);}
+  .chip-row{
+    display:flex;flex-wrap:wrap;gap:10px;
+    border:1px solid var(--line);
+    background:var(--panel);
+    border-radius:var(--radius);
+    padding:10px;
+  }
+  .chip{
+    font-family:var(--mono);font-size:13px;
+    background:transparent;color:var(--muted);
+    border:1px solid transparent;border-radius:9px;
+    padding:9px 14px;cursor:pointer;
+    display:flex;align-items:center;gap:8px;
+    transition:background .15s, color .15s, border-color .15s;
+  }
+  .chip .dot{width:5px;height:5px;border-radius:50%;background:var(--muted);transition:background .15s;}
+  .chip:hover{color:var(--text);border-color:var(--line);}
+  .chip[aria-selected="true"]{
+    background:var(--panel-2);color:var(--amber);border-color:var(--amber-dim);
+  }
+  .chip[aria-selected="true"] .dot{background:var(--amber);box-shadow:0 0 0 3px rgba(255,180,84,0.15);}
+
+  /* ---------- response panel ---------- */
+  .response-panel{
+    margin-top:22px;
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    background:var(--panel);
+    overflow:hidden;
+  }
+  .response-head{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:12px 18px;border-bottom:1px solid var(--line);
+    background:var(--panel-2);
+  }
+  .response-head .req{
+    font-family:var(--mono);font-size:12.5px;color:var(--muted);
+  }
+  .response-head .req .verb{color:var(--green);font-weight:600;}
+  .response-head .status{
+    font-family:var(--mono);font-size:11.5px;color:var(--green);
+    border:1px solid rgba(110,231,183,0.3);border-radius:999px;padding:3px 9px;
+  }
+
+  .response-body{padding:28px;}
+  .persona-view{
+    animation:reveal .35s ease both;
+  }
+  @keyframes reveal{
+    from{opacity:0;transform:translateY(6px);}
+    to{opacity:1;transform:translateY(0);}
+  }
+
+  .tagline{
+    font-family:var(--display);font-weight:600;
+    font-size:clamp(19px,2.6vw,24px);
+    margin:0 0 14px;line-height:1.35;color:var(--text);
+  }
+  .signature-badge{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:var(--mono);font-size:12px;font-weight:600;
+    letter-spacing:.04em;color:var(--ink);
+    background:linear-gradient(100deg, var(--amber), #ffd9a0);
+    border-radius:7px;padding:6px 11px;margin-bottom:22px;
+  }
+
+  .stat-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:26px;}
+  .stat{
+    border:1px solid var(--line);border-radius:10px;
+    padding:10px 14px;font-size:13px;color:var(--muted);
+    background:var(--ink);
+  }
+  .stat strong{display:block;color:var(--text);font-family:var(--display);font-size:15px;font-weight:600;}
+
+  .block{margin-bottom:26px;}
+  .block:last-child{margin-bottom:0;}
+  .block-title{
+    font-family:var(--mono);font-size:11.5px;color:var(--muted);
+    text-transform:uppercase;letter-spacing:.08em;
+    margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid var(--line);
+  }
+
+  .entry{margin-bottom:16px;}
+  .entry:last-child{margin-bottom:0;}
+  .entry-head{
+    display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
+    margin-bottom:4px;
+  }
+  .entry-title{font-weight:600;font-size:14.5px;color:var(--text);}
+  .entry-org{font-size:13px;color:var(--violet);}
+  .entry ul{margin:6px 0 0;padding-left:18px;color:var(--muted);font-size:14px;}
+  .entry ul li{margin-bottom:4px;}
+  .entry p.desc{margin:4px 0 0;color:var(--muted);font-size:14px;}
+
+  .tag-row{display:flex;flex-wrap:wrap;gap:8px;}
+  .tag{
+    font-family:var(--mono);font-size:12px;color:var(--text);
+    background:var(--panel-2);border:1px solid var(--line);
+    border-radius:7px;padding:6px 10px;
+  }
+
+  /* ---------- always-on strip ---------- */
+  .always-on{padding:44px 0;}
+  .always-on .block-title{border-bottom:none;padding-bottom:0;margin-bottom:16px;}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .info-card{
+    border:1px solid var(--line);border-radius:var(--radius);
+    background:var(--panel);padding:18px 20px;
+  }
+  .info-card h3{
+    font-family:var(--display);font-size:15px;margin:0 0 6px;font-weight:600;
+  }
+  .info-card p{margin:0;color:var(--muted);font-size:13.5px;}
+
+  /* ---------- footer ---------- */
+  footer{
+    border-top:1px solid var(--line);padding:30px 0 40px;
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;
+  }
+  footer .fmono{font-family:var(--mono);font-size:12px;color:var(--muted);}
+  footer .fmono .amber{color:var(--amber);}
+
+  @media (max-width:640px){
+    .grid-2{grid-template-columns:1fr;}
+    .hero-top{gap:16px;}
+    .response-body{padding:20px;}
+    .console-links{gap:12px;}
+    .entry-head{flex-direction:column;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .persona-view{animation:none;}
+    .btn:hover{transform:none;}
+  }
+</style>
+</head>
+<body>
+
+<div class="console-bar">
+  <div class="wrap">
+    <div class="brand"><span class="status-dot"></span> <b>irshad.dev</b> / profile.api <span style="opacity:.5">· v1</span></div>
+    <div class="console-links">
+      <a href="https://github.com/DevChipZ?tab=repositories" target="_blank" rel="noopener">github</a>
+      <a href="mailto:irshad060404@gmail.com">email</a>
+      <a href="assets/Irshad_Ahmed_Resume.pdf" target="_blank" rel="noopener">résumé</a>
+    </div>
+  </div>
+</div>
+
+<main class="wrap">
+
+  <section class="hero">
+    <div class="hero-top">
+      <img class="avatar" src="assets/photo.jpg" alt="Portrait of Irshad Ahmed" />
+      <div class="hero-id">
+        <p class="eyebrow">// multi-model profile · pick a build below</p>
+        <h1>Irshad Ahmed</h1>
+        <p class="role-line">currently serving: <span id="roleValue">full-stack developer</span></p>
+        <p class="location-line">Chennai, Tamil Nadu, India</p>
+      </div>
+    </div>
+
+    <div class="meta-row">
+      <span class="meta-pill"><strong>B.E. CSE</strong> · Dhaanish Ahmed College of Engineering, 2021–2025</span>
+      <span class="meta-pill">CGPA <strong>8.31</strong>/10</span>
+      <span class="meta-pill">TCS CodeVita S12 — global rank <strong>#2800</strong></span>
+      <span class="meta-pill">MongoDB <strong>Developer</strong> certified</span>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-primary" href="mailto:irshad060404@gmail.com">Get in touch</a>
+      <a class="btn btn-ghost" href="assets/Irshad_Ahmed_Resume.pdf" target="_blank" rel="noopener">Download résumé</a>
+      <a class="btn btn-ghost" href="https://github.com/DevChipZ?tab=repositories" target="_blank" rel="noopener">View GitHub</a>
+    </div>
+  </section>
+
+  <section class="picker-section">
+    <p class="picker-label"><span class="prompt">GET</span> <span class="path">/irshad/profile?as=</span><span id="pathValue">developer</span></p>
+    <div class="chip-row" role="tablist" aria-label="Choose which profile to load" id="chipRow"></div>
+  </section>
+
+  <section class="response-panel">
+    <div class="response-head">
+      <span class="req"><span class="verb">200</span> — response body</span>
+      <span class="status">● live</span>
+    </div>
+    <div class="response-body" id="responseBody"></div>
+  </section>
+
+  <section class="always-on">
+    <p class="block-title">// runs in the background, regardless of which profile you load</p>
+    <div class="grid-2">
+      <div class="info-card">
+        <h3>Community &amp; mentorship</h3>
+        <p>Maintains an active open-source portfolio (ChipZ) on GitHub, sharing Python scripts and documentation to help others learn programming fundamentals.</p>
+      </div>
+      <div class="info-card">
+        <h3>How I work</h3>
+        <p>Solo indie builder by default, comfortable owning a product end-to-end — idea, build, ship, and the awkward customer-support emails after launch.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;width:100%;">
+    <span class="fmono">© 2026 Irshad Ahmed · built solo, deployed on <span class="amber">Vercel</span></span>
+    <span class="fmono">+91 9445263979 · irshad060404@gmail.com</span>
+  </div>
+</footer>
+
+<script>
+const personas = {
+  developer: {
+    label: "developer",
+    role: "full-stack developer",
+    tagline: "I build and ship complete products — frontend, backend, and the AI wired in between.",
+    stats: [
+      {v:"3", l:"products shipped solo"},
+      {v:"React·Node·Mongo", l:"core stack"},
+      {v:"Live", l:"on Vercel"}
+    ],
+    experience: [
+      {
+        title:"Backend & Analytics",
+        org:"Kingly &amp; Trendz India",
+        bullets:[
+          "Engineered backend data pipelines with Node.js and Firebase to track e-commerce traffic and user interactions."
+        ]
+      }
+    ],
+    projects: [
+      {title:"TailorFit AI", org:"Live product", desc:"End-to-end AI resume tailoring app — dual input modes, dark theme, Gumroad licensing with single-use key enforcement via Upstash Redis, and one-click A4 PDF export."},
+      {title:"Franger AI", org:"Web app", desc:"React + Vite mental-wellness companion with a bring-your-own-key model layer spanning Claude Haiku, GPT-4o mini, Gemini Flash and OpenRouter."},
+      {title:"ToolDrop", org:"Ongoing", desc:"Affiliate storefront on GitHub Pages, built as a passive-income and automation testbed."}
+    ],
+    skills: ["JavaScript","React","Node.js","MongoDB","Firebase","Python","Git & GitHub","Vercel"]
+  },
+  "data-analyst": {
+    label: "data analyst",
+    role: "data analyst",
+    tagline: "I clean the data nobody wants to touch, then turn it into reports people actually read.",
+    stats: [
+      {v:"10,000+", l:"rows cleaned & validated"},
+      {v:"5+", l:"analytical assignments"},
+      {v:"2", l:"data analyst internships"}
+    ],
+    experience: [
+      {
+        title:"Data Analyst Intern",
+        org:"Grad Twin",
+        bullets:[
+          "Cleaned and validated 10,000+ row datasets, reducing null and inconsistent values to build robust pipelines for analytical modeling.",
+          "Documented workflows and ran internal knowledge-sharing sessions that sped up onboarding for peers."
+        ]
+      },
+      {
+        title:"Data Analyst Intern",
+        org:"Coursera",
+        bullets:[
+          "Used Excel, SQL and Python (Pandas) to preprocess data across 5+ analytical assignments, handling missing values and engineering features.",
+          "Built analytical reports translating complex trends into insights for non-technical stakeholders."
+        ]
+      }
+    ],
+    projects: [
+      {title:"KINGLY & TRENDZ INDIA", org:"Analytics pipeline", desc:"Built backend logic to track e-commerce traffic and user interactions, turning raw event data into usable analytics."}
+    ],
+    skills: ["SQL","Excel","Python (Pandas)","Data Cleaning","Feature Engineering","Stakeholder Reporting","Jupyter"]
+  },
+  "data-scientist": {
+    label: "data scientist",
+    role: "data scientist",
+    tagline: "I move past dashboards into models — from feature engineering to a working PoC.",
+    stats: [
+      {v:"CNN / YOLO", l:"computer vision PoC"},
+      {v:"#2800", l:"global rank, TCS CodeVita S12"},
+      {v:"TensorFlow", l:"scikit-learn · NumPy"}
+    ],
+    experience: [
+      {
+        title:"Aspiring Junior Data Scientist",
+        org:"Independent research",
+        bullets:[
+          "Applied machine learning and deep learning fundamentals to move from cleaned datasets to working proof-of-concept models."
+        ]
+      }
+    ],
+    projects: [
+      {title:"Early Wildfire Detection", org:"ML / CV proof of concept", desc:"Machine learning and computer vision pipeline analyzing aerial infrared imagery to detect wildfires and optimize risk-distance algorithms."}
+    ],
+    skills: ["Python (Pandas, NumPy, scikit-learn, TensorFlow)","Machine Learning","Deep Learning","Model Optimization","Feature Engineering","SQL"]
+  },
+  "genai-engineer": {
+    label: "genai engineer",
+    role: "GenAI / LLM engineer",
+    tagline: "I wire large language models into products people actually pay for.",
+    stats: [
+      {v:"1", l:"LLM product live in market"},
+      {v:"4 models", l:"integrated (BYOK)"},
+      {v:"Agentic", l:"workflows in progress"}
+    ],
+    experience: [
+      {
+        title:"Independent builder",
+        org:"TailorFit AI & Franger AI",
+        bullets:[
+          "Deployed TailorFit AI using GenAI and LLMs (Groq / LLaMA 3.3 70B) to optimize resumes for ATS alignment, handling prompt engineering and webhook-based deployment end-to-end.",
+          "Built Franger AI on a bring-your-own-key model, letting users plug in Claude Haiku, GPT-4o mini, Gemini Flash or OpenRouter."
+        ]
+      }
+    ],
+    projects: [
+      {title:"ToolDrop AI & Franger AI", org:"Ongoing research", desc:"Researching and integrating agentic workflows to automate multi-step productivity tasks that currently need manual work."}
+    ],
+    skills: ["GenAI & LLMs","Prompt Engineering","Model Optimization","Groq / LLaMA 3.3 70B","API Integration","Agentic Workflows"]
+  },
+  designer: {
+    label: "designer",
+    role: "interaction / product designer",
+    tagline: "I design the workflow before I design the pixels.",
+    stats: [
+      {v:"EA", l:"internship experience"},
+      {v:"2D/3D", l:"interaction workflows"},
+      {v:"Dark mode", l:"UI shipped in production"}
+    ],
+    experience: [
+      {
+        title:"Model Interaction Designer Intern",
+        org:"Electronic Arts (EA)",
+        bullets:[
+          "Collaborated across cross-functional teams to design and test 2D/3D interaction workflows, ensuring high-quality technical execution for production deliverables."
+        ]
+      }
+    ],
+    projects: [
+      {title:"TailorFit AI — interface", org:"Product design", desc:"Designed the dual input modes, dark theme toggle, and a live contenteditable resume preview so edits feel immediate rather than form-driven."}
+    ],
+    skills: ["Interaction Design","UI/UX","2D & 3D Workflows","Unreal Engine (basics)","Design Systems"]
+  }
+};
+
+const order = ["developer","data-analyst","data-scientist","genai-engineer","designer"];
+const chipRow = document.getElementById("chipRow");
+const responseBody = document.getElementById("responseBody");
+const roleValue = document.getElementById("roleValue");
+const pathValue = document.getElementById("pathValue");
+
+order.forEach((key, i) => {
+  const btn = document.createElement("button");
+  btn.className = "chip";
+  btn.setAttribute("role","tab");
+  btn.setAttribute("aria-selected", i === 0 ? "true" : "false");
+  btn.dataset.key = key;
+  btn.innerHTML = `<span class="dot"></span>${personas[key].label}`;
+  btn.addEventListener("click", () => selectPersona(key));
+  chipRow.appendChild(btn);
+});
+
+function selectPersona(key){
+  const p = personas[key];
+  [...chipRow.children].forEach(c => c.setAttribute("aria-selected", c.dataset.key === key ? "true" : "false"));
+  roleValue.textContent = p.role;
+  pathValue.textContent = key;
+
+  const statsHtml = p.stats.map(s => `<div class="stat"><strong>${s.v}</strong>${s.l}</div>`).join("");
+
+  const expHtml = p.experience.map(e => `
+    <div class="entry">
+      <div class="entry-head">
+        <span class="entry-title">${e.title}</span>
+        <span class="entry-org">${e.org}</span>
+      </div>
+      <ul>${e.bullets.map(b => `<li>${b}</li>`).join("")}</ul>
+    </div>
+  `).join("");
+
+  const projHtml = p.projects.map(pr => `
+    <div class="entry">
+      <div class="entry-head">
+        <span class="entry-title">${pr.title}</span>
+        <span class="entry-org">${pr.org}</span>
+      </div>
+      <p class="desc">${pr.desc}</p>
+    </div>
+  `).join("");
+
+  const skillsHtml = p.skills.map(s => `<span class="tag">${s}</span>`).join("");
+
+  responseBody.innerHTML = `
+    <div class="persona-view">
+      <p class="tagline">${p.tagline}</p>
+      <span class="signature-badge">I PLAY WITH AI</span>
+      <div class="stat-row">${statsHtml}</div>
+      <div class="block">
+        <p class="block-title">Experience</p>
+        ${expHtml}
+      </div>
+      <div class="block">
+        <p class="block-title">Projects</p>
+        ${projHtml}
+      </div>
+      <div class="block">
+        <p class="block-title">Skills</p>
+        <div class="tag-row">${skillsHtml}</div>
+      </div>
+    </div>
+  `;
+}
+
+selectPersona("developer");
+</script>
+
+</body>
+</html>
