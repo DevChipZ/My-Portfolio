@@ -85,11 +85,12 @@
   .hero-banner {
     position: absolute;
     top: 0; right: 0; bottom: 0; left: 20%;
-    background-image: url('IMG-20241230-WA0006 (1).jpg');
+    /* CHANGED: Restored your original file path so it looks in the assets folder */
+    background-image: url('assets/photo.jpg');
     background-size: cover;
     background-position: center 20%;
     z-index: -2;
-    opacity: 0.6; /* Adjust brightness of image here */
+    opacity: 0.6; 
   }
 
   .hero-fade {
@@ -159,7 +160,7 @@
     border-radius: 0 0 var(--radius) var(--radius);
   }
   .info-panel.active {
-    max-height: 1000px; /* arbitrary large value to allow expansion */
+    max-height: 1000px; 
     opacity: 1;
     transition: max-height 0.5s ease-in-out, opacity 0.4s ease-in-out;
     border: 1px solid var(--line);
